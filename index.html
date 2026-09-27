@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>KAYLA GRIPPI — Portfolio</title>
+  <meta name="description" content="Portfolio of Kayla Grippi — Marketing student specializing in digital marketing, social media strategy, and data-driven decision making." />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* CSS Variables & Tokens */
+    :root {
+      color-scheme: light;
+      --font-display: "Bricolage Grotesque", ui-serif, Georgia, serif;
+      --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --background: #faf8f5;
+      --foreground: #222220;
+      --surface: #f3efe9;
+      --surface-2: #eae4db;
+      --card: #ffffff;
+      --muted: #eae4db;
+      --muted-foreground: #73716b;
+      --accent: #d9532f;
+      --accent-foreground: #ffffff;
+      --border: rgba(34, 34, 32, 0.1);
+      --border-strong: rgba(34, 34, 32, 0.22);
+    }
+
+    html.dark {
+      color-scheme: dark;
+      --background: #141413;
+      --foreground: #f4f3f0;
+      --surface: #1d1c1a;
+      --surface-2: #272623;
+      --card: #1d1c1a;
+      --muted: #272623;
+      --muted-foreground: #a3a099;
+      --accent: #ff6e4a;
+      --accent-foreground: #1c0803;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.2);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border-color: var(--border);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--foreground);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--accent-foreground);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Layout & Utility Styles */
+    .shell {
+      margin-inline: auto;
+      width: 100%;
+      max-width: 84rem;
+      padding-inline: 1.25rem;
+    }
+    @media (min-width: 768px) { .shell { padding-inline: 2rem; } }
+    @media (min-width: 1280px) { .shell { padding-inline: 3.5rem; } }
+
+    .eyebrow {
+      font-size: 0.6875rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted-foreground);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hairline {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(to right, transparent, var(--border-strong) 15%, var(--border-strong) 85%, transparent);
+    }
+
+    .grid-lines {
+      background-image:
+        linear-gradient(to right, var(--border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+      background-size: 5rem 5rem;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%);
+    }
+
+    .accent-glow {
+      background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 68%);
+    }
+
+    .link-underline {
+      position: relative;
+    }
+    .link-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      height: 1px;
+      width: 100%;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease-out-expo);
+    }
+    .link-underline:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      transition: all 0.5s var(--ease-out-expo);
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      border-bottom-color: var(--border);
+      background-color: color-mix(in srgb, var(--background) 80%, transparent);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .header-inner {
+      display: flex;
+      height: 4.5rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+      font-size: 1rem;
+    }
+    .logo-sq {
+      width: 0.625rem;
+      height: 0.625rem;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .logo:hover .logo-sq {
+      transform: rotate(45deg);
+    }
+    nav.desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+    @media (min-width: 1024px) {
+      nav.desktop-nav { display: flex; }
+    }
+    .nav-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: var(--foreground);
+    }
+    .actions-group {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    /* Theme Toggle Styles */
+    .theme-btn {
+      width: 2.75rem;
+      height: 2.75rem;
+      display: grid;
+      place-items: center;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      transition: border-color 0.3s, color 0.3s;
+      position: relative;
+    }
+    .theme-btn:hover {
+      border-color: var(--border-strong);
+    }
+    .theme-btn .icon {
+      position: absolute;
+      transition: transform 0.4s var(--ease-out-expo), opacity 0.4s var(--ease-out-expo);
+    }
+    .theme-btn .icon.hidden {
+      opacity: 0;
+      transform: rotate(90deg) scale(0.5);
+      pointer-events: none;
+    }
+    .theme-btn .icon.visible {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+      pointer-events: auto;
+    }
+
+    .mobile-toggle {
+      width: 2.75rem;
+      height: 2.75rem;
+      display: grid;
+      place-items: center;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      transition: border-color 0.3s, color 0.3s;
+      position: relative;
+    }
+    .mobile-toggle:hover {
+      border-color: var(--border-strong);
+    }
+
+    .btn-pill {
+      display: none;
+      height: 2.75rem;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 9999px;
+      padding: 0 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    @media (min-width: 640px) {
+      .btn-pill { display: inline-flex; }
+    }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--foreground);
+    }
+    .btn-outline:hover {
+      background: var(--foreground);
+      color: var(--background);
+      border-color: var(--foreground);
+    }
+    .btn-primary {
+      background: var(--foreground);
+      color: var(--background);
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: var(--accent-foreground);
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: var(--accent-foreground);
+    }
+    .btn-accent:hover {
+      filter: brightness(1.1);
+    }
+    .mobile-toggle {
+      display: grid;
+    }
+    @media (min-width: 1024px) {
+      .mobile-toggle { display: none; }
+    }
+    #mobile-menu {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--background);
+      padding: 1rem 0;
+    }
+    #mobile-menu.open {
+      display: block;
+    }
+    .mobile-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      padding-top: 8rem;
+      padding-bottom: 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (min-width: 640px) {
+      .hero-section { padding-top: 10rem; padding-bottom: 7rem; }
+    }
+    .hero-grid {
+      display: grid;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 5rem; }
+    }
+    .ping-dot {
+      position: relative;
+      display: flex;
+      width: 0.375rem;
+      height: 0.375rem;
+    }
+    .ping-dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: var(--accent);
+      animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .ping-dot-core {
+      position: relative;
+      width: 0.375rem;
+      height: 0.375rem;
+      border-radius: 9999px;
+      background: var(--accent);
+    }
+    @keyframes ping {
+      75%, 100% { transform: scale(2.5); opacity: 0; }
+    }
+    .hero-title {
+      margin-top: 1.5rem;
+      font-size: clamp(2.5rem, 9vw, 5.5rem);
+      line-height: 0.98;
+      font-weight: 600;
+    }
+    .hero-intro {
+      margin-top: 1.75rem;
+      max-width: 36rem;
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .socials-row {
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: 1.5rem;
+      row-gap: 0.75rem;
+    }
+    .portrait-wrap {
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 24rem;
+    }
+    @media (min-width: 1024px) {
+      .portrait-wrap { max-width: none; }
+    }
+    .portrait-border {
+      position: absolute;
+      inset: -0.75rem;
+      border: 1px solid var(--border);
+    }
+    @media (min-width: 640px) {
+      .portrait-border { inset: -1.25rem; }
+    }
+    .portrait-img {
+      position: relative;
+      aspect-ratio: 4/5;
+      width: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(25%);
+      transition: filter 0.7s var(--ease-out-expo);
+      display: block;
+      background: var(--surface);
+    }
+    .portrait-img:hover {
+      filter: grayscale(0%);
+    }
+    .badge-available {
+      position: absolute;
+      bottom: -1rem;
+      left: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--background);
+      padding: 0.625rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Section Styles */
+    .section-spacing {
+      scroll-margin-top: 6rem;
+      border-top: 1px solid var(--border);
+      padding: 6rem 0;
+    }
+    @media (min-width: 640px) {
+      .section-spacing { padding: 8rem 0; }
+    }
+    .section-title {
+      margin-top: 1.25rem;
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 600;
+      line-height: 1.05;
+    }
+    .section-desc {
+      margin-top: 1.25rem;
+      max-width: 36rem;
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+    }
+
+    /* About Section */
+    .about-grid {
+      margin-top: 3.5rem;
+      display: grid;
+      gap: 3rem;
+    }
+    @media (min-width: 1024px) {
+      .about-grid { grid-template-columns: 0.9fr 1.1fr; gap: 5rem; }
+    }
+    .about-lead {
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      line-height: 1.6;
+      color: var(--foreground);
+    }
+    .about-body {
+      margin-top: 1.5rem;
+      max-width: 36rem;
+      color: var(--muted-foreground);
+    }
+    .highlights-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+    @media (min-width: 640px) {
+      .highlights-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .highlight-card {
+      background: var(--background);
+      padding: 1.25rem;
+    }
+
+    /* Experience Timeline */
+    .timeline {
+      margin-top: 3.5rem;
+      border-left: 1px solid var(--border);
+      padding-left: 0;
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 1.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+    @media (min-width: 640px) {
+      .timeline-item { padding-left: 2.5rem; }
+    }
+    .timeline-dot {
+      position: absolute;
+      top: 0.5rem;
+      left: -4.5px;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: var(--accent);
+    }
+    .timeline-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      .timeline-grid { grid-template-columns: 14rem 1fr; gap: 2.5rem; }
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .tag-item {
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.625rem;
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+    .bullet-list {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .bullet-list li {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+    .bullet-dash {
+      margin-top: 0.625rem;
+      height: 1px;
+      width: 1rem;
+      background: var(--border-strong);
+      flex-shrink: 0;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      margin-top: 3.5rem;
+      display: grid;
+      gap: 1px;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+    @media (min-width: 1024px) {
+      .skills-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .skill-card {
+      background: var(--background);
+      padding: 1.75rem;
+    }
+    @media (min-width: 640px) {
+      .skill-card { padding: 2.25rem; }
+    }
+    .skill-pill {
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      padding: 0.375rem 0.875rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .skill-pill:hover {
+      border-color: var(--accent);
+      color: var(--foreground);
+    }
+
+    /* Contact Details */
+    .contact-list {
+      margin-top: 3.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 0;
+    }
+    @media (min-width: 640px) {
+      .contact-row {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 2.5rem;
+      }
+      .contact-row dt { width: 10rem; }
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+    }
+
+    /* Footer - Updated for Mobile Viewport Insets */
+    footer {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .footer-watermark {
+      pointer-events: none;
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 18vw, 16rem);
+      line-height: 1;
+      font-weight: 600;
+      white-space: nowrap;
+      color: rgba(125, 125, 125, 0.05);
+      user-select: none;
+      max-width: 100%;
+    }
+    .footer-inner {
+      position: relative;
+      padding: 3.5rem 0 3.5rem;
+    }
+    @media (min-width: 640px) {
+      .footer-inner {
+        padding: 4rem 0 5rem;
+      }
+    }
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    @media (min-width: 1024px) {
+      .footer-top { flex-direction: row; justify-content: space-between; }
+    }
+    .footer-bottom {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.25rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      padding-bottom: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+    @media (min-width: 640px) {
+      .footer-bottom {
+        margin-top: 3.5rem;
+        flex-direction: row;
+        align-items: center;
+        padding-bottom: 0;
+      }
+    }
+
+    /* Accessibility Skip Link */
+    .skip-to-content {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    .skip-to-content:focus {
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      background: var(--foreground);
+      color: var(--background);
+      padding: 0.75rem 1.25rem;
+      border-radius: 9999px;
+    }
+
+    /* SVG Icon Helpers */
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      display: inline-block;
+      vertical-align: middle;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-to-content">Skip to content</a>
+
+  <!-- Header -->
+  <header id="site-header">
+    <div class="shell">
+      <div class="header-inner">
+        <a href="#top" class="logo">
+          <span class="logo-sq" aria-hidden="true"></span>
+          <span>KAYLA GRIPPI</span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main">
+          <a href="#about" class="nav-link link-underline">About</a>
+          <a href="#experience" class="nav-link link-underline">Experience</a>
+          <a href="#skills" class="nav-link link-underline">Skills</a>
+          <a href="#contact" class="nav-link link-underline">Contact</a>
+        </nav>
+
+        <div class="actions-group">
+          <!-- Dark Mode Toggle Button -->
+          <button type="button" id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+            <!-- Sun icon (shown in dark mode) -->
+            <svg id="sun-icon" class="icon visible" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+            <!-- Moon icon (shown in light mode) -->
+            <svg id="moon-icon" class="icon hidden" viewBox="0 0 24 24">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-pill btn-outline">
+            Resume
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+          </a>
+
+          <a href="#contact" class="btn-pill btn-primary">
+            Let&rsquo;s talk
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+          </a>
+
+          <button type="button" id="mobile-toggle" class="mobile-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-menu">
+        <nav aria-label="Mobile">
+          <a href="#about" class="mobile-link"><span>About</span><span class="eyebrow" style="color:var(--accent);">01</span></a>
+          <a href="#experience" class="mobile-link"><span>Experience</span><span class="eyebrow" style="color:var(--accent);">02</span></a>
+          <a href="#skills" class="mobile-link"><span>Skills</span><span class="eyebrow" style="color:var(--accent);">03</span></a>
+          <a href="#contact" class="mobile-link"><span>Contact</span><span class="eyebrow" style="color:var(--accent);">04</span></a>
+          <a href="#contact" class="btn-pill btn-accent" style="display:inline-flex; width:100%; justify-content:center; margin-top:1.25rem;">
+            Let&rsquo;s talk
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">
+      KAYLA GRIPPI — Marketing Portfolio
+    </h1>
+
+    <!-- Hero Section -->
+    <section id="top" aria-labelledby="hero-heading" class="hero-section">
+      <div class="grid-lines" style="position:absolute; inset:0; pointer-events:none;" aria-hidden="true"></div>
+      <div class="accent-glow" style="position:absolute; -top:10rem; -right:8rem; width:38rem; height:38rem; opacity:0.5; filter:blur(48px); pointer-events:none;" aria-hidden="true"></div>
+
+      <div class="shell" style="position:relative;">
+        <div class="hero-grid">
+          <div>
+            <div class="reveal">
+              <p class="eyebrow">
+                <span class="ping-dot"><span class="ping-dot-core"></span></span>
+                Hello, I&rsquo;m Kayla
+              </p>
+            </div>
+
+            <div class="reveal">
+              <h2 id="hero-heading" class="hero-title">
+                Digital Marketing &amp; Social Strategy
+              </h2>
+            </div>
+
+            <div class="reveal">
+              <p class="hero-intro">
+                I'm a marketing student with a strong foundation in digital marketing, social media strategy, and data driven decision making.
+              </p>
+            </div>
+
+            <div class="reveal hero-cta">
+              <a href="#experience" class="btn-pill btn-accent" style="display:inline-flex; height:3.25rem; padding:0 1.75rem;">
+                Explore experience
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </a>
+              <a href="#contact" class="btn-pill btn-outline" style="display:inline-flex; height:3.25rem; padding:0 1.75rem;">
+                Let&rsquo;s connect
+                <svg class="icon" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+              </a>
+              <a href="/resume.pdf" class="btn-pill" style="display:inline-flex; height:3.25rem; color:var(--muted-foreground); gap:0.5rem;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Resume / CV
+              </a>
+            </div>
+
+            <div class="reveal">
+              <ul class="socials-row">
+                <li><a href="https://linkedin.com/in/kayla-grippi-66779a295" target="_blank" rel="noreferrer noopener" class="link-underline eyebrow">LinkedIn</a></li>
+                <li><a href="https://instagram.com/_kayla.grippi/" target="_blank" rel="noreferrer noopener" class="link-underline eyebrow">Instagram</a></li>
+                <li><a href="mailto:kaylagrippi7@gmail.com" class="link-underline eyebrow">Email</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Portrait -->
+          <div class="reveal portrait-wrap">
+            <div style="position:relative;">
+              <div class="portrait-border" aria-hidden="true"></div>
+              <img
+                src="kayla-portrait.jpg"
+                alt="Portrait of Kayla Grippi"
+                class="portrait-img"
+                loading="eager"
+              />
+              <div class="badge-available">
+                <span class="eyebrow" style="color:var(--accent);">Available</span>
+                <span style="font-size:0.75rem; color:var(--muted-foreground);">Part Time internships</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:5rem; display:none;" class="reveal desktop-only-block">
+          <a href="#about" class="link-underline eyebrow" style="display:inline-flex; align-items:center; gap:0.75rem;">
+            <span style="display:inline-block; height:1px; width:2.5rem; background:var(--border-strong);"></span>
+            Scroll to explore
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-heading" class="section-spacing">
+      <div class="shell">
+        <div class="reveal">
+          <p class="eyebrow">
+            <span style="color:var(--accent);">01</span>
+            <span style="display:inline-block; height:1px; width:2rem; background:var(--border-strong);"></span>
+            About
+          </p>
+          <h2 id="about-heading" class="section-title">A little about me</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="reveal">
+            <div style="position:relative;">
+              <img
+                src="kayla-portrait.jpg"
+                alt="Portrait of Kayla Grippi"
+                style="aspect-ratio:3/4; width:100%; object-fit:cover; object-position:center top; display:block;"
+                loading="lazy"
+              />
+              <div class="hairline" style="margin-top:1rem;" aria-hidden="true"></div>
+              <p style="margin-top:1rem; font-size:0.75rem; color:var(--muted-foreground);">
+                KAYLA GRIPPI — Hamden, CT &amp; Boston, MA
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="reveal">
+              <p class="about-lead">
+                I'm Kayla, a senior marketing student who enjoys turning complex problems into simple, intuitive experiences.
+              </p>
+            </div>
+            <div class="reveal">
+              <p class="about-body">
+                I care about the details most people never notice — the timing of a transition, the clarity of a label, the moment a product finally feels obvious.
+              </p>
+            </div>
+            <div class="reveal">
+              <p class="about-body">
+                I think of marketing as the eyes, ears, and mouth of a brand. As the eyes by observing the market, interpreting consumer needs, and watching trends and competitors. The ears by listening to consumers' wants and needs. And the mouth by shaping how the world perceives a brand from the outside perspective.
+              </p>
+            </div>
+
+            <div class="reveal">
+              <dl class="highlights-grid">
+                <div class="highlight-card">
+                  <dt class="eyebrow">Based in</dt>
+                  <dd style="margin-top:0.5rem; font-size:0.875rem;">Hamden, CT / Boston, MA</dd>
+                </div>
+                <div class="highlight-card">
+                  <dt class="eyebrow">Focused on</dt>
+                  <dd style="margin-top:0.5rem; font-size:0.875rem;">Digital &amp; Social Media Marketing</dd>
+                </div>
+                <div class="highlight-card">
+                  <dt class="eyebrow">Currently</dt>
+                  <dd style="margin-top:0.5rem; font-size:0.875rem;">Senior at Quinnipiac University (May 2027)</dd>
+                </div>
+                <div class="highlight-card">
+                  <dt class="eyebrow">Available for</dt>
+                  <dd style="margin-top:0.5rem; font-size:0.875rem;">Part Time internships</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" aria-labelledby="experience-heading" class="section-spacing">
+      <div class="shell">
+        <div class="reveal">
+          <p class="eyebrow">
+            <span style="color:var(--accent);">02</span>
+            <span style="display:inline-block; height:1px; width:2rem; background:var(--border-strong);"></span>
+            Experience
+          </p>
+          <h2 id="experience-heading" class="section-title">Experience</h2>
+        </div>
+
+        <ol class="timeline">
+          <li class="reveal timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-grid">
+              <div>
+                <p class="eyebrow">JUNE 2026 — AUGUST 2026</p>
+                <p style="margin-top:0.5rem; font-size:0.875rem; color:var(--muted-foreground);">Canton, MA</p>
+              </div>
+              <div>
+                <h3 style="font-size:1.75rem; font-weight:600;">BRAND EXPERIENCE VALUE INTERN</h3>
+                <p style="margin-top:0.25rem; font-size:0.875rem; color:var(--accent);">DUNKIN'</p>
+                <p style="margin-top:1rem; max-width:36rem; color:var(--muted-foreground);">
+                  Analyzed sales data from Oracle BI and assisted translating into actionable business promotions and recommendations.
+                </p>
+                <ul class="bullet-list">
+                  <li>
+                    <span class="bullet-dash" aria-hidden="true"></span>
+                    <span>Created a new innovative approach and brand strategy focused on expanding Dunkin's market reach in select emerging markets.</span>
+                  </li>
+                  <li>
+                    <span class="bullet-dash" aria-hidden="true"></span>
+                    <span>Developed an entire Dunkin' marketing window from the ground up with fellow marketing interns including the overarching theme, menu innovation, promotions, campaign concepts, and merchandise; presented to senior management.</span>
+                  </li>
+                </ul>
+                <ul class="tag-list">
+                  <li class="tag-item">Oracle BI</li>
+                  <li class="tag-item">PowerPoint</li>
+                  <li class="tag-item">Excel</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+
+          <li class="reveal timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-grid">
+              <div>
+                <p class="eyebrow">Previous</p>
+                <p style="margin-top:0.5rem; font-size:0.875rem; color:var(--muted-foreground);">Quincy, MA</p>
+              </div>
+              <div>
+                <h3 style="font-size:1.75rem; font-weight:600;">CUSTOMER SERVICE REPRESENTATIVE</h3>
+                <p style="margin-top:0.25rem; font-size:0.875rem; color:var(--accent);">CURRY ACE HARDWARE</p>
+                <ul class="bullet-list">
+                  <li>
+                    <span class="bullet-dash" aria-hidden="true"></span>
+                    <span>Trained new employees in company workflow and operational practices.</span>
+                  </li>
+                  <li>
+                    <span class="bullet-dash" aria-hidden="true"></span>
+                    <span>Handled inventory management and front-of-house cashier duties.</span>
+                  </li>
+                </ul>
+                <ul class="tag-list">
+                  <li class="tag-item">Point of Sale system</li>
+                  <li class="tag-item">Communication</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" aria-labelledby="skills-heading" class="section-spacing">
+      <div class="shell">
+        <div class="reveal">
+          <p class="eyebrow">
+            <span style="color:var(--accent);">03</span>
+            <span style="display:inline-block; height:1px; width:2rem; background:var(--border-strong);"></span>
+            Skills
+          </p>
+          <h2 id="skills-heading" class="section-title">Tools &amp; capabilities</h2>
+          <p class="section-desc">
+            The things I reach for most. Grouped by how I actually use them, not ranked by an arbitrary percentage.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="reveal skill-card">
+            <div style="display:flex; align-items:baseline; gap:0.75rem;">
+              <span style="font-family:var(--font-display); font-size:0.875rem; color:var(--accent);">01</span>
+              <h3 style="font-size:1.25rem; font-weight:600;">Design</h3>
+            </div>
+            <ul style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <li class="skill-pill">UI/UX Design</li>
+              <li class="skill-pill">Product Design</li>
+              <li class="skill-pill">Design Systems</li>
+              <li class="skill-pill">Prototyping</li>
+              <li class="skill-pill">User Research</li>
+            </ul>
+          </div>
+
+          <div class="reveal skill-card">
+            <div style="display:flex; align-items:baseline; gap:0.75rem;">
+              <span style="font-family:var(--font-display); font-size:0.875rem; color:var(--accent);">02</span>
+              <h3 style="font-size:1.25rem; font-weight:600;">Development</h3>
+            </div>
+            <ul style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <li class="skill-pill">HTML</li>
+              <li class="skill-pill">CSS</li>
+              <li class="skill-pill">JavaScript</li>
+              <li class="skill-pill">TypeScript</li>
+              <li class="skill-pill">React</li>
+              <li class="skill-pill">Next.js</li>
+            </ul>
+          </div>
+
+          <div class="reveal skill-card">
+            <div style="display:flex; align-items:baseline; gap:0.75rem;">
+              <span style="font-family:var(--font-display); font-size:0.875rem; color:var(--accent);">03</span>
+              <h3 style="font-size:1.25rem; font-weight:600;">Tools</h3>
+            </div>
+            <ul style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <li class="skill-pill">Figma</li>
+              <li class="skill-pill">GitHub</li>
+              <li class="skill-pill">Notion</li>
+              <li class="skill-pill">Adobe Creative Cloud</li>
+              <li class="skill-pill">Oracle BI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" aria-labelledby="contact-heading" class="section-spacing">
+      <div class="shell">
+        <div class="reveal">
+          <p class="eyebrow">
+            <span style="color:var(--accent);">04</span>
+            <span style="display:inline-block; height:1px; width:2rem; background:var(--border-strong);"></span>
+            Contact
+          </p>
+          <h2 id="contact-heading" class="section-title">Get in touch</h2>
+          <p class="section-desc">
+            The best way to reach me is by email. I read everything and reply to anything relevant.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <dl class="contact-list">
+            <div class="contact-row">
+              <dt class="eyebrow">Email</dt>
+              <dd>
+                <a href="mailto:kaylagrippi7@gmail.com" class="contact-link link-underline">
+                  <span>kaylagrippi7@gmail.com</span>
+                  <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+                </a>
+              </dd>
+            </div>
+
+            <div class="contact-row">
+              <dt class="eyebrow">LinkedIn</dt>
+              <dd>
+                <a href="https://linkedin.com/in/kayla-grippi-66779a295" target="_blank" rel="noreferrer noopener" class="contact-link link-underline">
+                  <span>linkedin.com/in/kayla-grippi-66779a295</span>
+                  <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+                </a>
+              </dd>
+            </div>
+
+            <div class="contact-row">
+              <dt class="eyebrow">Instagram</dt>
+              <dd>
+                <a href="https://instagram.com/_kayla.grippi/" target="_blank" rel="noreferrer noopener" class="contact-link link-underline">
+                  <span>instagram.com/_kayla.grippi/</span>
+                  <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
+                </a>
+              </dd>
+            </div>
+
+            <div class="contact-row">
+              <dt class="eyebrow">Based in</dt>
+              <dd style="font-size:0.875rem; color:var(--muted-foreground);">Hamden, CT &amp; Boston, MA</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-watermark" aria-hidden="true">Kayla</span>
+
+    <div class="shell footer-inner">
+      <div class="footer-top">
+        <div style="max-width:24rem;">
+          <p style="font-family:var(--font-display); font-size:1.25rem; font-weight:600;">KAYLA GRIPPI</p>
+          <a href="mailto:kaylagrippi7@gmail.com" class="link-underline" style="margin-top:1.25rem; display:inline-block; font-size:0.875rem;">
+            kaylagrippi7@gmail.com
+          </a>
+        </div>
+
+        <div>
+          <p class="eyebrow">Elsewhere</p>
+          <ul style="margin-top:1rem; display:flex; flex-direction:column; gap:0.625rem; font-size:0.875rem; color:var(--muted-foreground);">
+            <li><a href="https://linkedin.com/in/kayla-grippi-66779a295" target="_blank" rel="noreferrer noopener" class="link-underline">LinkedIn</a></li>
+            <li><a href="https://instagram.com/_kayla.grippi/" target="_blank" rel="noreferrer noopener" class="link-underline">Instagram</a></li>
+            <li><a href="mailto:kaylagrippi7@gmail.com" class="link-underline">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Designed &amp; built by KAYLA GRIPPI. &copy; <span id="current-year"></span>.</p>
+        <button type="button" id="back-to-top" class="eyebrow" style="cursor:pointer; color:var(--muted-foreground); display:inline-flex; align-items:center; gap:0.5rem;">
+          Back to top
+          <svg class="icon" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set dynamic current year in footer
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+
+    // ==========================================
+    // DARK MODE / LIGHT MODE TOGGLE CONTROLLER
+    // ==========================================
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const sunIcon = document.getElementById("sun-icon");
+    const moonIcon = document.getElementById("moon-icon");
+
+    function renderTheme(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+        sunIcon.classList.remove("hidden");
+        sunIcon.classList.add("visible");
+        moonIcon.classList.remove("visible");
+        moonIcon.classList.add("hidden");
+        themeToggleBtn.setAttribute("aria-label", "Switch to light mode");
+      } else {
+        document.documentElement.classList.remove("dark");
+        sunIcon.classList.remove("visible");
+        sunIcon.classList.add("hidden");
+        moonIcon.classList.remove("hidden");
+        moonIcon.classList.add("visible");
+        themeToggleBtn.setAttribute("aria-label", "Switch to dark mode");
+      }
+    }
+
+    // Read stored preference, fall back to user OS system preference
+    const savedTheme = localStorage.getItem("portfolio-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    let isDark = savedTheme !== null ? savedTheme === "dark" : prefersDark;
+
+    // Apply immediately
+    renderTheme(isDark);
+
+    // Click handler to toggle mode and save preference
+    themeToggleBtn.addEventListener("click", () => {
+      isDark = !isDark;
+      localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
+      renderTheme(isDark);
+    });
+
+    // Mobile Navigation Drawer Toggle
+    const mobileToggle = document.getElementById("mobile-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("open");
+      mobileToggle.setAttribute("aria-expanded", isOpen);
+    });
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        mobileToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Header Background Blur on Scroll
+    const header = document.getElementById("site-header");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 24) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    }, { passive: true });
+
+    // Scroll Reveal Intersection Observer
+    const reveals = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+
+      reveals.forEach((el) => observer.observe(el));
+    } else {
+      reveals.forEach((el) => el.classList.add("visible"));
+    }
+
+    // Back to top smooth scroll
+    document.getElementById("back-to-top").addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+      });
+    });
+  </script>
+</body>
+</html>
